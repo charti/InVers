@@ -29,11 +29,11 @@ namespace InVers.Control
             {
                 case Messages.NewGame:
                     InitGame();
-                    Mediator.NotifyColleagues(Messages.GameInitEnd, GetTokenBoard());
+                    Mediator.NotifyColleagues(Messages.GameInitEnd, _board.Tokens);
                     break;
                 case Messages.MakeTurn:
                       if(_board.Move((int)args))
-                        Mediator.NotifyColleagues(Messages.RefreshView, GetTokenBoard());
+                          Mediator.NotifyColleagues(Messages.RefreshView, _board.Tokens);
                     else
                         Mediator.NotifyColleagues(Messages.RaiseError, "Wrong turn!");
                     break;
@@ -49,10 +49,6 @@ namespace InVers.Control
                 new Player(PlayerKind.Human),
                 new Player(PlayerKind.AI)
             });
-        }
-        private IEnumerable<Token> GetTokenBoard()
-        {
-            return _board.BoardArr.Where(el => el != null).AsEnumerable<Token>();
         }
         #endregion
     }

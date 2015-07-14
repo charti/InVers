@@ -10,12 +10,7 @@ namespace InVers.Model
     class Board
     {
         #region Properties / Members
-        private Token[] _board = new Token[64];
-        public Token[] BoardArr
-        {
-            get { return _board; }
-            private set { _board = value; }
-        }
+        public Field[] _board = new Field[64];
 
         public Player CurrentTurn { get; private set; }
         
@@ -36,6 +31,7 @@ namespace InVers.Model
 
         private void InitBoard()
         {
+
             for (int i = 1; i <= 6; i++)
             {
                 for (int j = 1; j <= 5; j += 2)
@@ -53,6 +49,20 @@ namespace InVers.Model
                     }
                 }
             }
+
+            for (int i = 1; i < 63; i++)
+                if (_board[i] == null && i != 7 && i != 56)
+                    _board[i] = new Move(i);
+
+        }
+
+        public Token[] Tokens
+        {
+            get
+            {
+                return _board.Where(field => field != null && field.Type == typeof(Token))
+                    .Select(token => token as Token).ToArray();
+            }
         }
 
         public bool Move(int encodedCoord)
@@ -63,7 +73,7 @@ namespace InVers.Model
             {
                 if ((encodedCoord % 8) == 0)                     //links
                 {
-                    var subArr = new ArraySegment<Token>(_board, encodedCoord, 7).ToArray();
+                    var subArr = new ArraySegment<Token>(Tokens, encodedCoord, 7).ToArray();
                     subArr[0] = CurrentTurn.CurrentToken;
                     CurrentTurn.CurrentToken = subArr[6];
                     CurrentTurn.CurrentToken.IsFlipped = true;
@@ -71,7 +81,7 @@ namespace InVers.Model
                 }
                 else if ((encodedCoord % 8) == 7)               //rechts
                 {
-                    var subArr = new ArraySegment<Token>(_board, encodedCoord - 6, 7).ToArray();
+                    var subArr = new ArraySegment<Token>(Tokens, encodedCoord - 6, 7).ToArray();
                     subArr[6] = CurrentTurn.CurrentToken;
                     CurrentTurn.CurrentToken = subArr[0];
                     CurrentTurn.CurrentToken.IsFlipped = true;
@@ -83,7 +93,7 @@ namespace InVers.Model
                     subArr.Add(CurrentTurn.CurrentToken);
                     
                     for (int i = 8 + encodedCoord; i <= 54; i+=8)
-                        subArr.Add(_board[i]);
+                        subArr.Add(Tokens[i]);
 
                     CurrentTurn.CurrentToken = subArr.LastOrDefault();
                     CurrentTurn.CurrentToken.IsFlipped = true;
@@ -99,7 +109,7 @@ namespace InVers.Model
                     subArr.Add(CurrentTurn.CurrentToken);
 
                     for (int i = encodedCoord - 8; i >= 9; i -= 8)
-                        subArr.Add(_board[i]);
+                        subArr.Add(Tokens[i]);
 
                     CurrentTurn.CurrentToken = subArr.LastOrDefault();
                     CurrentTurn.CurrentToken.IsFlipped = true;
@@ -118,15 +128,15 @@ namespace InVers.Model
 
         private IEnumerable<int> GetPossibleMoves()
         {
-            var allFlippedEnemyCurbs = _board.Where(token =>
+            var flippedEnemyTokens = Tokens.Where(token =>
                     token != null &&
-                    token.IsFlipped && 
-                    token.Color != CurrentTurn.Color)
-                .Select()
+                    token.IsFlipped &&
+                    token.Color != CurrentTurn.Color)                
                 .ToArray();
 
+            
 
-            return new [] {8};
+            return new [] {8, 16, 24};
         }
     }
 }
