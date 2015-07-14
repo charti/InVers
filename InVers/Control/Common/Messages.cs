@@ -16,6 +16,15 @@
         /// Signals end of game initialisation
         /// </summary>
         public const string GameInitEnd = "gameInitEnd";
+        
+        /// <summary>
+        /// Refreshes the View
+        /// </summary>
+        public const string RefreshView = "refreshView";
 
+        /// <summary>
+        /// Raises an Error Box
+        /// </summary>
+        public const string RaiseError = "raiseError";
     }
 }

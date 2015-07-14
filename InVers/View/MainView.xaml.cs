@@ -12,7 +12,8 @@ namespace InVers.View
         public MainViewControl Controller { get; private set; }
         public MainView()
         {
-            Controller = new MainViewControl(this);
+            Controller = new MainViewControl();
+            DataContext = Controller;
             InitializeComponent();
         }
     }

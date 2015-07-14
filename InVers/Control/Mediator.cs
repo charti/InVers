@@ -12,7 +12,7 @@ namespace InVers.Control
     public class Mediator
     {
         #region Data members
-        Dictionary<string, List<IColleague>> internalList
+        Dictionary<string, List<IColleague>> _internalList
             = new Dictionary<string, List<IColleague>>();
         #endregion
 
@@ -25,17 +25,17 @@ namespace InVers.Control
         {
             foreach (string message in messages)
             {
-                if (!internalList.ContainsKey(message))
+                if (!_internalList.ContainsKey(message))
                 {
-                    internalList[message] = new List<IColleague>(1);
+                    _internalList[message] = new List<IColleague>(1);
                 }
                 else
                 {
-                    if (internalList[message] == null)
-                        internalList[message] = new List<IColleague>(1);
+                    if (_internalList[message] == null)
+                        _internalList[message] = new List<IColleague>(1);
                 }
 
-                internalList[message].Add(colleague);
+                _internalList[message].Add(colleague);
             }
         }
 
@@ -46,10 +46,10 @@ namespace InVers.Control
         /// <param name="args">The arguments for the message</param>
         public void NotifyColleagues(string message, object args)
         {
-            if (internalList.ContainsKey(message))
+            if (_internalList.ContainsKey(message))
             {
                 //forward the message to all listeners
-                foreach (IColleague colleague in internalList[message])
+                foreach (IColleague colleague in _internalList[message])
                     colleague.MessageNotification(message, args);
             }
         }

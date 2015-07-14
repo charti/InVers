@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:control="clr-namespace:InVers.Control"
         Title="MainWindow" Height="525" Width="500">
-    <StackPanel x:Name="stackPanel">
-        <Grid x:Name="gridBoard" Background="#FFAEA6A6" Width="{Binding ActualHeight, ElementName=stackPanel, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=stackPanel, Mode=OneWay}" DataContext="{Binding DataContext, ElementName=window}">
+    <DockPanel x:Name="dockPanel">
+        <Grid x:Name="gridBoard" Background="#FFAEA6A6" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -33,12 +33,12 @@
             <Button Grid.Column="5" Grid.Row="0" Command="control:Commands.Turn">v</Button>
             <Button Grid.Column="6" Grid.Row="0" Command="control:Commands.Turn">v</Button>
 
-            <Button Grid.Column="1" Grid.Row="8" Command="control:Commands.Turn">^</Button>
-            <Button Grid.Column="2" Grid.Row="8" Command="control:Commands.Turn">^</Button>
-            <Button Grid.Column="3" Grid.Row="8" Command="control:Commands.Turn">^</Button>
-            <Button Grid.Column="4" Grid.Row="8" Command="control:Commands.Turn">^</Button>
-            <Button Grid.Column="5" Grid.Row="8" Command="control:Commands.Turn">^</Button>
-            <Button Grid.Column="6" Grid.Row="8" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="1" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="2" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="3" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="4" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="5" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="6" Grid.Row="7" Command="control:Commands.Turn">^</Button>
 
             <Button Grid.Column="0" Grid.Row="1" Command="control:Commands.Turn">></Button>
             <Button Grid.Column="0" Grid.Row="2" Command="control:Commands.Turn">></Button>
@@ -47,12 +47,55 @@
             <Button Grid.Column="0" Grid.Row="5" Command="control:Commands.Turn">></Button>
             <Button Grid.Column="0" Grid.Row="6" Command="control:Commands.Turn">></Button>
 
-            <Button Grid.Column="8" Grid.Row="1" Command="control:Commands.Turn">&lt;</Button>
-            <Button Grid.Column="8" Grid.Row="2" Command="control:Commands.Turn">&lt;</Button>
-            <Button Grid.Column="8" Grid.Row="3" Command="control:Commands.Turn">&lt;</Button>
-            <Button Grid.Column="8" Grid.Row="4" Command="control:Commands.Turn">&lt;</Button>
-            <Button Grid.Column="8" Grid.Row="5" Command="control:Commands.Turn">&lt;</Button>
-            <Button Grid.Column="8" Grid.Row="6" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="1" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="2" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="3" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="4" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="5" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="6" Command="control:Commands.Turn">&lt;</Button>
+
+            <Label Grid.Column="1" Grid.Row="1" Background="{Binding ViewBoard[0]}"></Label>
+            <Label Grid.Column="2" Grid.Row="1" Background="{Binding ViewBoard[1]}"></Label>
+            <Label Grid.Column="3" Grid.Row="1" Background="{Binding ViewBoard[2]}"></Label>
+            <Label Grid.Column="4" Grid.Row="1" Background="{Binding ViewBoard[3]}"></Label>
+            <Label Grid.Column="5" Grid.Row="1" Background="{Binding ViewBoard[4]}"></Label>
+            <Label Grid.Column="6" Grid.Row="1" Background="{Binding ViewBoard[5]}"></Label>
+
+            <Label Grid.Column="1" Grid.Row="2" Background="{Binding ViewBoard[6]}"></Label>
+            <Label Grid.Column="2" Grid.Row="2" Background="{Binding ViewBoard[7]}"></Label>
+            <Label Grid.Column="3" Grid.Row="2" Background="{Binding ViewBoard[8]}"></Label>
+            <Label Grid.Column="4" Grid.Row="2" Background="{Binding ViewBoard[9]}"></Label>
+            <Label Grid.Column="5" Grid.Row="2" Background="{Binding ViewBoard[10]}"></Label>
+            <Label Grid.Column="6" Grid.Row="2" Background="{Binding ViewBoard[11]}"></Label>
+
+            <Label Grid.Column="1" Grid.Row="3" Background="{Binding ViewBoard[12]}"></Label>
+            <Label Grid.Column="2" Grid.Row="3" Background="{Binding ViewBoard[13]}"></Label>
+            <Label Grid.Column="3" Grid.Row="3" Background="{Binding ViewBoard[14]}"></Label>
+            <Label Grid.Column="4" Grid.Row="3" Background="{Binding ViewBoard[15]}"></Label>
+            <Label Grid.Column="5" Grid.Row="3" Background="{Binding ViewBoard[16]}"></Label>
+            <Label Grid.Column="6" Grid.Row="3" Background="{Binding ViewBoard[17]}"></Label>
+
+            <Label Grid.Column="1" Grid.Row="4" Background="{Binding ViewBoard[18]}"></Label>
+            <Label Grid.Column="2" Grid.Row="4" Background="{Binding ViewBoard[19]}"></Label>
+            <Label Grid.Column="3" Grid.Row="4" Background="{Binding ViewBoard[20]}"></Label>
+            <Label Grid.Column="4" Grid.Row="4" Background="{Binding ViewBoard[21]}"></Label>
+            <Label Grid.Column="5" Grid.Row="4" Background="{Binding ViewBoard[22]}"></Label>
+            <Label Grid.Column="6" Grid.Row="4" Background="{Binding ViewBoard[23]}"></Label>
+
+            <Label Grid.Column="1" Grid.Row="5" Background="{Binding ViewBoard[24]}"></Label>
+            <Label Grid.Column="2" Grid.Row="5" Background="{Binding ViewBoard[25]}"></Label>
+            <Label Grid.Column="3" Grid.Row="5" Background="{Binding ViewBoard[26]}"></Label>
+            <Label Grid.Column="4" Grid.Row="5" Background="{Binding ViewBoard[27]}"></Label>
+            <Label Grid.Column="5" Grid.Row="5" Background="{Binding ViewBoard[28]}"></Label>
+            <Label Grid.Column="6" Grid.Row="5" Background="{Binding ViewBoard[29]}"></Label>
+
+            <Label Grid.Column="1" Grid.Row="6" Background="{Binding ViewBoard[30]}"></Label>
+            <Label Grid.Column="2" Grid.Row="6" Background="{Binding ViewBoard[31]}"></Label>
+            <Label Grid.Column="3" Grid.Row="6" Background="{Binding ViewBoard[32]}"></Label>
+            <Label Grid.Column="4" Grid.Row="6" Background="{Binding ViewBoard[33]}"></Label>
+            <Label Grid.Column="5" Grid.Row="6" Background="{Binding ViewBoard[34]}"></Label>
+            <Label Grid.Column="6" Grid.Row="6" Background="{Binding ViewBoard[35]}"></Label>
         </Grid>
-    </StackPanel>
+        
+    </DockPanel>
 </Window>

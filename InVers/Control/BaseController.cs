@@ -10,7 +10,7 @@ namespace InVers.Control
     public abstract class BaseController : INotifyPropertyChanged, IColleague
     {
         #region Data members
-        static Mediator mediatorInstance = new Mediator();
+        static Mediator _mediatorInstance = new Mediator();
         #endregion
 
         #region INotifyPropertyChanged Members
@@ -54,7 +54,7 @@ namespace InVers.Control
         public BaseController()
         {
             //set the mediator to be the same one for every controller.
-            Mediator = mediatorInstance;
+            Mediator = _mediatorInstance;
         }
     }
 }

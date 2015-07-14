@@ -6,20 +6,26 @@ using System.Threading.Tasks;
 
 namespace InVers.Model
 {
+    public enum PlayerKind { Human, AI };
+    public enum PlayerColor { red = 0, yellow = 1 }
+
     public class Player
     {
-        private PlayerKind kind;
+        #region Members / Properties
+        private PlayerKind _kind;
         public PlayerColor Color { get; private set; }
-        private static int playerCount = 0;
+        public Token CurrentToken;
+        private static int _playerCount = 0;
+        #endregion
+
         public Player(PlayerKind kind)
         {
-            this.kind = kind;
-            Color = (PlayerColor)playerCount;
+            _kind = kind;
+            Color = (PlayerColor)_playerCount;
+            CurrentToken = new Token(Color) { IsFlipped = true };
 
-            playerCount = (playerCount + 1) % 2;
+            _playerCount = (_playerCount + 1) % 2;
         }
     }
 
-    public enum PlayerKind { Human, AI };
-    public enum PlayerColor { red = 0, yellow = 1}
 }
