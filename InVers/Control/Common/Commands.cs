@@ -14,5 +14,8 @@ namespace InVers.Control
     {
         public static RoutedUICommand Turn
             = new RoutedUICommand("Makes a Turn", "Turn", typeof(Commands));
+
+        public static RoutedUICommand StartGame
+            = new RoutedUICommand("Starts a Game", "StartGame", typeof(Commands));
     }
 }

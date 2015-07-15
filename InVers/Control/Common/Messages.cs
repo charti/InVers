@@ -41,5 +41,10 @@
         /// Notifies Winner
         /// </summary>
         public const string NotifyWinner = "notifyWinner";
+
+        /// <summary>
+        /// Notifies current Player
+        /// </summary>
+        public const string NotifyCurrent = "notifyPlayer";
     }
 }

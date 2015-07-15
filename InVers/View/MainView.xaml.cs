@@ -15,6 +15,7 @@ namespace InVers.View
             Controller = new MainViewControl();
             DataContext = Controller;
             InitializeComponent();
+            var configView = new ConfigView();
         }
     }
 }

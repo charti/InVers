@@ -101,19 +101,19 @@
                 <Style TargetType="Label">
                     <Setter Property="FontSize" Value="20"/>
                     <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Padding" Value="50,20,0,0"/>
                 </Style>
             </DockPanel.Resources>
             <TextBlock DockPanel.Dock="Top">
+                <Label Background="Green"></Label>
                 <Label Content="Player 1:" Foreground="Red"></Label>
                 <Label Content="Token" Foreground="Red"></Label>                
             </TextBlock>
             <TextBlock DockPanel.Dock="Top">
-                <Label  Content="Player 2:" Foreground="Yellow"></Label>
+                <Label Content="Player 2:" Foreground="Yellow"></Label>
                 <Label Content="Token" Foreground="Yellow"></Label>
             </TextBlock>
             <TextBlock DockPanel.Dock="Top">
-                <Label Content="Ergebnis"/>
+                <Label Content="Score"/>
                 <Label Content="{Binding Score}"/>
             </TextBlock>
         </DockPanel>

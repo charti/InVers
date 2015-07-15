@@ -1,16 +1,13 @@
-﻿using InVers.Control;
-using InVers.Model;
-
+﻿using InVers.Model;
+using InVers.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace InVers.Control
 {
@@ -19,18 +16,35 @@ namespace InVers.Control
         #region Properties / Members
 
         bool _stopAI = false;
+
+        bool _isPlayerOne = true;
+        public bool IsPlayerOne
+        {
+            get { return _isPlayerOne; }
+            private set { _isPlayerOne = value; OnPropertyChanged("IsPlayerOne"); }
+        }
+
         int _score = 0;
         public int Score 
         { 
             get { return _score; } 
-            private set { _score = value; OnPropertyChanged("Score"); } 
+            private set { _score = value; OnPropertyChanged("Score"); }
         }
-        public ImageBrush[] CurrentTokens { get; private set; }
+
         private ImageBrush[] _viewBoard = new ImageBrush[36];
         public ImageBrush[] ViewBoard
         {
-            get { return _viewBoard; } private set {_viewBoard = value; }
+            get { return _viewBoard; }
+            private set { _viewBoard = value; }
         }
+
+        private Brush[] _tokenColors;
+        public Brush[] TokenColors
+        {
+            get { return _tokenColors; }
+            private set { _tokenColors = value; OnPropertyChanged("TokenColors"); }
+        }
+
         #endregion
         
         public MainViewControl()
@@ -46,8 +60,6 @@ namespace InVers.Control
 
             CommandManager.RegisterClassCommandBinding(typeof(System.Windows.Controls.Control),
                 new CommandBinding(Commands.Turn, Turn_Click));
-
-            Mediator.NotifyColleagues(Messages.NewGame, null);
         }
         
         private async void WaitBeforeTurn()
@@ -74,6 +86,9 @@ namespace InVers.Control
                 case Messages.RefreshScore:
                     Score = (int)args;
                     break;
+                case Messages.NotifyCurrent:
+
+                    break;
                 case Messages.AITurn:
                     WaitBeforeTurn();
                     break;
@@ -82,7 +97,7 @@ namespace InVers.Control
                     var strWinner = ((Player)args).Color == PlayerColor.red ?
                         "The Winner is: Red" : "The Winner is Yellow";
                     MessageBox.Show(strWinner, "Congratulations");
-                    Mediator.NotifyColleagues(Messages.NewGame, null);
+                    new ConfigView();
                     break;
                 default:
                     throw new NotImplementedException();

@@ -1,11 +1,6 @@
 ﻿using InVers.Model;
-using InVers.View;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InVers.Control
 {
@@ -28,7 +23,7 @@ namespace InVers.Control
             switch (message)
             {
                 case Messages.NewGame:
-                    InitGame();
+                    InitGame(args as int[]);
                     Mediator.NotifyColleagues(Messages.GameInitEnd, _board.Tokens);
                     Mediator.NotifyColleagues(Messages.RefreshScore, _board.GetScore());
 
@@ -64,11 +59,11 @@ namespace InVers.Control
         }
 
         #region Functions
-        public void InitGame()
+        public void InitGame(int[] playerKinds)
         {
             _board = new Board(new[] {
-                new Player(PlayerKind.AIRandom),
-                new Player(PlayerKind.AIRandom)
+                new Player((PlayerKind)playerKinds[0]),
+                new Player((PlayerKind)playerKinds[1])
             });
         }
         private void MoveAITry()
