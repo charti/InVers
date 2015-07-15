@@ -17,11 +17,18 @@ namespace InVers.Control
 
         bool _stopAI = false;
 
-        bool _isPlayerOne = true;
-        public bool IsPlayerOne
+        int _isPlayerOne = 100;
+        public int IsPlayerOne
         {
             get { return _isPlayerOne; }
             private set { _isPlayerOne = value; OnPropertyChanged("IsPlayerOne"); }
+        }
+
+        int _isPlayerTwo = 0;
+        public int IsPlayerTwo
+        {
+            get { return _isPlayerTwo; }
+            private set { _isPlayerTwo = value; OnPropertyChanged("IsPlayerTwo"); }
         }
 
         int _score = 0;
@@ -55,7 +62,8 @@ namespace InVers.Control
                 Messages.RaiseError,
                 Messages.RefreshScore,
                 Messages.AITurn,
-                Messages.NotifyWinner
+                Messages.NotifyWinner,
+                Messages.NotifyCurrentPlayer
             });
 
             CommandManager.RegisterClassCommandBinding(typeof(System.Windows.Controls.Control),
@@ -86,8 +94,10 @@ namespace InVers.Control
                 case Messages.RefreshScore:
                     Score = (int)args;
                     break;
-                case Messages.NotifyCurrent:
-
+                case Messages.NotifyCurrentPlayer:
+                    var isPLayerArr = args as int[];
+                    IsPlayerOne = isPLayerArr[0];
+                    IsPlayerTwo = isPLayerArr[1];
                     break;
                 case Messages.AITurn:
                     WaitBeforeTurn();

@@ -79,6 +79,15 @@ namespace InVers.Control
                 Mediator.NotifyColleagues(Messages.NotifyWinner, playerWon);
         }
 
+        private void UpdateView()
+        {
+            Mediator.NotifyColleagues(Messages.RefreshView, _board.Tokens);
+            Mediator.NotifyColleagues(Messages.RefreshScore, _board.GetScore());
+
+            var players = _board.CurrentTurn.Color == PlayerColor.red ?
+                new [] { 100, 0 } : new [] { 0, 100 };
+            Mediator.NotifyColleagues(Messages.NotifyCurrentPlayer, players); 
+        }
         #endregion
     }
 }

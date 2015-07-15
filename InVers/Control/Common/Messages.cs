@@ -45,6 +45,6 @@
         /// <summary>
         /// Notifies current Player
         /// </summary>
-        public const string NotifyCurrent = "notifyPlayer";
+        public const string NotifyCurrentPlayer = "notifyCurrentPlayer";
     }
 }
