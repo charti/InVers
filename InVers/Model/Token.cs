@@ -21,15 +21,15 @@ namespace InVers.Model
 
     public class Move : Field
     {
-        int _ID;
+        public int ID { get; private set; }
         int _blockIdx;
         int _moveKind;
 
         public Move(int coord)
         {
-            _ID = coord;
+            ID = coord;
 
-            if (0 < coord & coord < 7)
+            if (coord < 7)
             {
                 _moveKind = (int)MoveKind.Top;
                 _blockIdx = 48 + coord;
@@ -39,6 +39,103 @@ namespace InVers.Model
                 _moveKind = (int)MoveKind.Left;
                 _blockIdx = coord + 6;
             }
+            else if (coord % 8 == 7)
+            {
+                _moveKind = (int)MoveKind.Right;
+                _blockIdx = coord - 6;
+            }
+            else if (coord > 56)
+            {
+                _moveKind = (int)MoveKind.Bottom;
+                _blockIdx = (coord % 8) + 8;
+            }
+        }
+
+        public bool Slide(IEnumerable<Token> board, Player currentPlayer)
+        {
+            var boardArr = board.ToArray();
+            if (boardArr[_blockIdx].IsFlipped &&
+                boardArr[_blockIdx].Color != currentPlayer.Color)
+                return false;
+
+            var rowColor = new List<PlayerColor>();
+            var rowFlip = new List<bool>();
+            switch ((MoveKind)_moveKind)
+            {
+                case MoveKind.Left:
+                    rowColor = new List<PlayerColor>() { currentPlayer.CurrentToken.Color };
+                    rowFlip = new List<bool>() { currentPlayer.CurrentToken.IsFlipped };
+                    for (int i = ID + 1; i < _blockIdx; i++)
+                    {
+                        rowColor.Add(boardArr[i].Color);
+                        rowFlip.Add(boardArr[i].IsFlipped);
+                    }
+
+                    currentPlayer.CurrentToken.Color = boardArr[_blockIdx].Color;
+
+                    for (int i = ID + 1, count = 0; count < 6; i++, count++)
+                    {
+                        boardArr[i].Color = rowColor[count];
+                        boardArr[i].IsFlipped = rowFlip[count];
+                    }
+
+                    break;
+                case MoveKind.Right:
+                    rowColor = new List<PlayerColor>() { currentPlayer.CurrentToken.Color };
+                    rowFlip = new List<bool>() { currentPlayer.CurrentToken.IsFlipped };
+                    for (int i = ID - 1; i > _blockIdx; i--)
+                    {
+                        rowColor.Add(boardArr[i].Color);
+                        rowFlip.Add(boardArr[i].IsFlipped);
+                    }
+
+                    currentPlayer.CurrentToken.Color = boardArr[_blockIdx].Color;
+
+                    for (int i = ID - 1, count = 0; count < 6; i--, count++)
+                    {
+                        boardArr[i].Color = rowColor[count];
+                        boardArr[i].IsFlipped = rowFlip[count];
+                    }
+                    break;
+                case MoveKind.Top:
+                    rowColor = new List<PlayerColor>() { currentPlayer.CurrentToken.Color };
+                    rowFlip = new List<bool>() { currentPlayer.CurrentToken.IsFlipped };
+                    for (int i = ID + 8; i < _blockIdx; i+=8)
+                    {
+                        rowColor.Add(boardArr[i].Color);
+                        rowFlip.Add(boardArr[i].IsFlipped);
+                    }
+
+                    currentPlayer.CurrentToken.Color = boardArr[_blockIdx].Color;
+
+                    for (int i = ID + 8, count = 0; count < 6; i+=8, count++)
+                    {
+                        boardArr[i].Color = rowColor[count];
+                        boardArr[i].IsFlipped = rowFlip[count];
+                    }
+                    break;
+                case MoveKind.Bottom:
+                    rowColor = new List<PlayerColor>() { currentPlayer.CurrentToken.Color };
+                    rowFlip = new List<bool>() { currentPlayer.CurrentToken.IsFlipped };
+                    for (int i = ID - 8; i > _blockIdx; i-=8)
+                    {
+                        rowColor.Add(boardArr[i].Color);
+                        rowFlip.Add(boardArr[i].IsFlipped);
+                    }
+
+                    currentPlayer.CurrentToken.Color = boardArr[_blockIdx].Color;
+
+                    for (int i = ID - 8, count = 0; count < 6; i-=8, count++)
+                    {
+                        boardArr[i].Color = rowColor[count];
+                        boardArr[i].IsFlipped = rowFlip[count];
+                    }
+                    break;
+                default:
+                    return false;
+            }
+
+            return true;
         }
     }
 
@@ -56,12 +153,12 @@ namespace InVers.Model
         public ImageBrush GetImage()
         {
             Uri uri;
-            string flipped = IsFlipped ? "_flipped.bmp" : ".bmp";
+            string fileExtension = IsFlipped ? "_flipped.bmp" : ".bmp";
 
             if (Color == PlayerColor.red)
-                uri = new Uri("pack://application:,,,/Resources/Images/red" + flipped);
+                uri = new Uri("pack://application:,,,/Resources/Images/red" + fileExtension);
             else
-                uri = new Uri("pack://application:,,,/Resources/Images/yellow" + flipped);
+                uri = new Uri("pack://application:,,,/Resources/Images/yellow" + fileExtension);
             
             return new ImageBrush(new BitmapImage(uri));
         }

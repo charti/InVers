@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace InVers.Model
 {
-    class Board
+    public class Board
     {
         #region Properties / Members
-        public Field[] _board = new Field[64];
+        private Field[] _board = new Field[64];
 
         public Player CurrentTurn { get; private set; }
         
@@ -19,6 +19,23 @@ namespace InVers.Model
         { 
             get { return _players; } 
             private set { _players = value; } 
+        }
+        public Token[] Tokens
+        {
+            get
+            {
+                return _board.Where(field => field != null && field.Type == typeof(Token))
+                    .Select(token => token as Token).ToArray();
+            }
+        }
+
+        public Move[] Moves
+        {
+            get
+            {
+                return _board.Where(field => field != null && field.Type == typeof(Move))
+                    .Select(move => move as Move).ToArray();
+            }
         }
         #endregion
 
@@ -56,88 +73,20 @@ namespace InVers.Model
 
         }
 
-        public Token[] Tokens
-        {
-            get
-            {
-                return _board.Where(field => field != null && field.Type == typeof(Token))
-                    .Select(token => token as Token).ToArray();
-            }
-        }
-
         public bool Move(int encodedCoord)
         {
-            var possibleMoves = GetPossibleMoves().AsEnumerable().ToList();
+            var success = Moves.First(move => move.ID == encodedCoord)
+                .Slide(_board.Select(token => token as Token).AsEnumerable(), CurrentTurn);
 
-            if(possibleMoves.Contains(encodedCoord))
+            if (success)
             {
-                if ((encodedCoord % 8) == 0)                     //links
-                {
-                    var subArr = new ArraySegment<Token>(Tokens, encodedCoord, 7).ToArray();
-                    subArr[0] = CurrentTurn.CurrentToken;
-                    CurrentTurn.CurrentToken = subArr[6];
-                    CurrentTurn.CurrentToken.IsFlipped = true;
-                    Array.Copy(subArr, 0, _board, encodedCoord + 1, 6);
-                }
-                else if ((encodedCoord % 8) == 7)               //rechts
-                {
-                    var subArr = new ArraySegment<Token>(Tokens, encodedCoord - 6, 7).ToArray();
-                    subArr[6] = CurrentTurn.CurrentToken;
-                    CurrentTurn.CurrentToken = subArr[0];
-                    CurrentTurn.CurrentToken.IsFlipped = true;
-                    Array.Copy(subArr, 1, _board, encodedCoord - 6, 6);
-                }
-                else if (encodedCoord <= 6)                     //oben
-                {
-                    var subArr = new List<Token>();
-                    subArr.Add(CurrentTurn.CurrentToken);
-                    
-                    for (int i = 8 + encodedCoord; i <= 54; i+=8)
-                        subArr.Add(Tokens[i]);
-
-                    CurrentTurn.CurrentToken = subArr.LastOrDefault();
-                    CurrentTurn.CurrentToken.IsFlipped = true;
-
-                    for (int idx = 8 + encodedCoord, count = 0; count <= 5; idx += 8, count++)
-                        _board[idx] = subArr[count];
-                }
-                else if (encodedCoord >= 57)                    //unten
-                {
-                    var column = encodedCoord % 8;
-
-                    var subArr = new List<Token>();
-                    subArr.Add(CurrentTurn.CurrentToken);
-
-                    for (int i = encodedCoord - 8; i >= 9; i -= 8)
-                        subArr.Add(Tokens[i]);
-
-                    CurrentTurn.CurrentToken = subArr.LastOrDefault();
-                    CurrentTurn.CurrentToken.IsFlipped = true;
-
-                    for (int idx = encodedCoord - 8, count = 0; count <= 5; idx -= 8, count++)
-                        _board[idx] = subArr[count];
-                }
-
                 CurrentTurn = _players.First(pl => CurrentTurn != pl);
-
                 return true;
             }
 
             return false;
         }
 
-        private IEnumerable<int> GetPossibleMoves()
-        {
-            var flippedEnemyTokens = Tokens.Where(token =>
-                    token != null &&
-                    token.IsFlipped &&
-                    token.Color != CurrentTurn.Color)                
-                .ToArray();
-
-            
-
-            return new [] {8, 16, 24};
-        }
     }
 }
 

@@ -32,7 +32,7 @@ namespace InVers.Control
                     Mediator.NotifyColleagues(Messages.GameInitEnd, _board.Tokens);
                     break;
                 case Messages.MakeTurn:
-                      if(_board.Move((int)args))
+                    if(_board.Move((int)args))
                           Mediator.NotifyColleagues(Messages.RefreshView, _board.Tokens);
                     else
                         Mediator.NotifyColleagues(Messages.RaiseError, "Wrong turn!");
