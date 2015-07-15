@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:control="clr-namespace:InVers.Control"
-        Title="MainWindow" Height="525" Width="500">
+        Title="MainWindow" Height="525" Width="800" MinWidth="{Binding ActualWidth, ElementName=gridBoard, Mode=OneWay}">
     <DockPanel x:Name="dockPanel">
-        <Grid x:Name="gridBoard" Background="#FFAEA6A6" >
+        <Grid DockPanel.Dock="Left" x:Name="gridBoard" Background="#FFAEA6A6" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -96,6 +96,26 @@
             <Label Grid.Column="5" Grid.Row="6" Background="{Binding ViewBoard[34]}"></Label>
             <Label Grid.Column="6" Grid.Row="6" Background="{Binding ViewBoard[35]}"></Label>
         </Grid>
-        
+        <DockPanel Background="#FFAEA6A6">
+            <DockPanel.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="50,20,0,0"/>
+                </Style>
+            </DockPanel.Resources>
+            <TextBlock DockPanel.Dock="Top">
+                <Label Content="Player 1:" Foreground="Red"></Label>
+                <Label Content="Token" Foreground="Red"></Label>                
+            </TextBlock>
+            <TextBlock DockPanel.Dock="Top">
+                <Label  Content="Player 2:" Foreground="Yellow"></Label>
+                <Label Content="Token" Foreground="Yellow"></Label>
+            </TextBlock>
+            <TextBlock DockPanel.Dock="Top">
+                <Label Content="Ergebnis"/>
+                <Label Content="{Binding Score}"/>
+            </TextBlock>
+        </DockPanel>
     </DockPanel>
 </Window>

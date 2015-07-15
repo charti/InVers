@@ -8,12 +8,31 @@ namespace InVers.Model
 {
     public static class Helpers
     {
-        public static List<int> AllMoves = new List<int> {  1,  2,  3,  4,  5,  6,
-                                                            8,                  15,
-                                                            16,                 23,
-                                                            24,                 31,
-                                                            32,                 39,
-                                                            40,                 47,
-                                                            48, 57, 58, 59, 60, 61 };
+        static Random random = new Random();
+        public static List<int> GenerateRandom(int count, int min, int max)
+        {
+            var candidates = new HashSet<int>();
+            //while (candidates.Count < count)
+            //    candidates.Add(random.Next(min, max));
+
+            for(; min <= max; min++)
+            {
+                candidates.Add(min);
+            }
+
+            var result = new List<int>();
+            result.AddRange(candidates);
+
+            var i = result.Count;
+            while (i > 1)
+            {
+                i--;
+                var k = random.Next(i + 1);
+                var value = result[k];
+                result[k] = result[i];
+                result[i] = value;
+            }
+            return result;
+        }
     }
 }
