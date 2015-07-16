@@ -21,9 +21,11 @@ namespace InVers.Model
 
     public class Move : Field
     {
+        #region Members / Properties
         public int ID { get; private set; }
         int _blockIdx;
         int _moveKind;
+        #endregion
 
         public Move(int coord)
         {
@@ -51,6 +53,7 @@ namespace InVers.Model
             }
         }
 
+        #region Functions
         public bool Slide(IEnumerable<Token> board, Player currentPlayer)
         {
             var boardArr = board.ToArray();
@@ -137,6 +140,7 @@ namespace InVers.Model
 
             return true;
         }
+        #endregion
     }
 
     public class Token : Field

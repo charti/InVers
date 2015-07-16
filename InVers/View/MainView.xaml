@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:control="clr-namespace:InVers.Control"
         Title="MainWindow" Height="525" Width="800" MinWidth="{Binding ActualWidth, ElementName=gridBoard, Mode=OneWay}">
-    <DockPanel x:Name="dockPanel">
-        <Grid DockPanel.Dock="Left" x:Name="gridBoard" Background="#FFAEA6A6" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" >
+    <DockPanel Background="#FFAEA6A6" x:Name="dockPanel">
+        <Grid DockPanel.Dock="Left" x:Name="gridBoard" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -26,33 +26,33 @@
                 <RowDefinition Height="0.5*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="1" Grid.Row="0" Command="">v</Button>
-            <Button Grid.Column="2" Grid.Row="0" Command="">v</Button>
-            <Button Grid.Column="3" Grid.Row="0" Command="">v</Button>
-            <Button Grid.Column="4" Grid.Row="0" Command="">v</Button>
-            <Button Grid.Column="5" Grid.Row="0" Command="">v</Button>
-            <Button Grid.Column="6" Grid.Row="0" Command="">v</Button>
+            <Button Grid.Column="1" Grid.Row="0" Command="control:Commands.Turn">v</Button>
+            <Button Grid.Column="2" Grid.Row="0" Command="control:Commands.Turn">v</Button>
+            <Button Grid.Column="3" Grid.Row="0" Command="control:Commands.Turn">v</Button>
+            <Button Grid.Column="4" Grid.Row="0" Command="control:Commands.Turn">v</Button>
+            <Button Grid.Column="5" Grid.Row="0" Command="control:Commands.Turn">v</Button>
+            <Button Grid.Column="6" Grid.Row="0" Command="control:Commands.Turn">v</Button>
 
-            <Button Grid.Column="1" Grid.Row="7" Command="">^</Button>
-            <Button Grid.Column="2" Grid.Row="7" Command="">^</Button>
-            <Button Grid.Column="3" Grid.Row="7" Command="">^</Button>
-            <Button Grid.Column="4" Grid.Row="7" Command="">^</Button>
-            <Button Grid.Column="5" Grid.Row="7" Command="">^</Button>
-            <Button Grid.Column="6" Grid.Row="7" Command="">^</Button>
+            <Button Grid.Column="1" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="2" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="3" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="4" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="5" Grid.Row="7" Command="control:Commands.Turn">^</Button>
+            <Button Grid.Column="6" Grid.Row="7" Command="control:Commands.Turn">^</Button>
 
-            <Button Grid.Column="0" Grid.Row="1" Command="">></Button>
-            <Button Grid.Column="0" Grid.Row="2" Command="">></Button>
-            <Button Grid.Column="0" Grid.Row="3" Command="">></Button>
-            <Button Grid.Column="0" Grid.Row="4" Command="">></Button>
-            <Button Grid.Column="0" Grid.Row="5" Command="">></Button>
-            <Button Grid.Column="0" Grid.Row="6" Command="">></Button>
+            <Button Grid.Column="0" Grid.Row="1" Command="control:Commands.Turn">></Button>
+            <Button Grid.Column="0" Grid.Row="2" Command="control:Commands.Turn">></Button>
+            <Button Grid.Column="0" Grid.Row="3" Command="control:Commands.Turn">></Button>
+            <Button Grid.Column="0" Grid.Row="4" Command="control:Commands.Turn">></Button>
+            <Button Grid.Column="0" Grid.Row="5" Command="control:Commands.Turn">></Button>
+            <Button Grid.Column="0" Grid.Row="6" Command="control:Commands.Turn">></Button>
 
-            <Button Grid.Column="7" Grid.Row="1" Command="">&lt;</Button>
-            <Button Grid.Column="7" Grid.Row="2" Command="">&lt;</Button>
-            <Button Grid.Column="7" Grid.Row="3" Command="">&lt;</Button>
-            <Button Grid.Column="7" Grid.Row="4" Command="">&lt;</Button>
-            <Button Grid.Column="7" Grid.Row="5" Command="">&lt;</Button>
-            <Button Grid.Column="7" Grid.Row="6" Command="">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="1" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="2" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="3" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="4" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="5" Command="control:Commands.Turn">&lt;</Button>
+            <Button Grid.Column="7" Grid.Row="6" Command="control:Commands.Turn">&lt;</Button>
 
             <Label Grid.Column="1" Grid.Row="1" Background="{Binding ViewBoard[0]}"></Label>
             <Label Grid.Column="2" Grid.Row="1" Background="{Binding ViewBoard[1]}"></Label>
@@ -96,20 +96,35 @@
             <Label Grid.Column="5" Grid.Row="6" Background="{Binding ViewBoard[34]}"></Label>
             <Label Grid.Column="6" Grid.Row="6" Background="{Binding ViewBoard[35]}"></Label>
         </Grid>
-        <StackPanel Background="#FFAEA6A6">
-            <TextBlock Height="50">
-                <Ellipse Fill="Green" Height="25" Width="25"/>
-                <Label FontSize="20"  Content="Player 1:" Foreground="Red"></Label>
-                <Label Content="Token" Foreground="Red"></Label>                
-            </TextBlock>
+        <StackPanel Background="#FFAEA6A6" DockPanel.Dock="Right" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="20"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Height="50"><InlineUIContainer>
+            		<Canvas Width="50" Height="50">
+            			<Ellipse Fill="Green" Height="25" Width="25" 
+            				Canvas.Left="4" Canvas.Top="22"
+            				Opacity="{Binding IsPlayerOne}"/>                    
+            		</Canvas>
+            	</InlineUIContainer><Run Text=" "/><InlineUIContainer>
+            		<Label Content="Player 1:" Foreground="Red"/>
+            	</InlineUIContainer><Run Text=" "/></TextBlock>
+            <TextBlock DockPanel.Dock="Top"><InlineUIContainer>
+            		<Canvas Width="50" Height="50">
+            			<Ellipse Fill="Green" Height="25" Width="25" 
+            				Canvas.Top="20" Canvas.Left="5"
+            				Opacity="{Binding IsPlayerTwo}"/>                    
+            		</Canvas>
+            	</InlineUIContainer><Run Text=" "/><InlineUIContainer>
+            		<Label Content="Player 2:" Foreground="Yellow"/>
+            	</InlineUIContainer><Run Text=" "/></TextBlock>
             <TextBlock DockPanel.Dock="Top">
-                <Ellipse Fill="Green" Height="25" Width="25"/>
-                <Label Content="Player 2:" Foreground="Yellow"/>
-                <Label Content="Token" Foreground="Yellow"></Label>
-            </TextBlock>
-            <TextBlock DockPanel.Dock="Top">
+                <Canvas Height="50" Width="50">
+                    <Label Canvas.Top="13" Canvas.Left="6" Content="{Binding Score}"/>                    
+                </Canvas>
                 <Label Content="Score"/>
-                <Label Content="{Binding Score}"/>
             </TextBlock>
         </StackPanel>
     </DockPanel>

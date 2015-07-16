@@ -24,9 +24,8 @@ namespace InVers.Control
             {
                 case Messages.NewGame:
                     InitGame(args as int[]);
-                    Mediator.NotifyColleagues(Messages.GameInitEnd, _board.Tokens);
-                    Mediator.NotifyColleagues(Messages.RefreshScore, _board.GetScore());
-
+                    UpdateView();
+                    Mediator.NotifyColleagues(Messages.GameInitEnd, null);
                     MoveAITry();
                     break;
                 case Messages.MakeTurn:
@@ -34,18 +33,14 @@ namespace InVers.Control
                     {
                         _board.Move(ArtificialIntelligence.GetBestMove(_board, 3));
 
-                        Mediator.NotifyColleagues(Messages.RefreshView, _board.Tokens);
-                        Mediator.NotifyColleagues(Messages.RefreshScore, _board.GetScore());
-
+                        UpdateView();
                         MoveAITry();
                     }
                     else if(_board.CurrentTurn.Kind == PlayerKind.Human)
                     {
                         if (_board.Move((int)args))
                         {
-                            Mediator.NotifyColleagues(Messages.RefreshView, _board.Tokens);
-                            Mediator.NotifyColleagues(Messages.RefreshScore, _board.GetScore());
-
+                            UpdateView();
                             MoveAITry();
                         }
                         else
@@ -86,7 +81,7 @@ namespace InVers.Control
 
             var players = _board.CurrentTurn.Color == PlayerColor.red ?
                 new [] { 100, 0 } : new [] { 0, 100 };
-            Mediator.NotifyColleagues(Messages.NotifyCurrentPlayer, players); 
+            Mediator.NotifyColleagues(Messages.NotifyCurrentPlayer, players);
         }
         #endregion
     }

@@ -5,6 +5,7 @@ namespace InVers.Control
 {
     public class ConfigViewControl : BaseController
     {
+        #region Properties / Members
         private int _combo1 = 0;
         private int _combo2 = 1;
         public int Player1Kind
@@ -12,12 +13,12 @@ namespace InVers.Control
             get { return _combo1; }
             set { _combo1 = value; OnPropertyChanged("Player1Kind"); }
         }
-
         public int Player2Kind
         {
             get { return _combo2; }
             set { _combo2 = value; OnPropertyChanged("Player2Kind"); }
         }
+        #endregion
 
         public ConfigViewControl()
         {
@@ -25,6 +26,7 @@ namespace InVers.Control
                 new CommandBinding(Commands.StartGame, start_Click));
         }
 
+        #region Functions
         private void start_Click(object sender, ExecutedRoutedEventArgs e)
         {
             Mediator.NotifyColleagues(Messages.NewGame, new[] { Player1Kind, Player2Kind });
@@ -39,5 +41,6 @@ namespace InVers.Control
                     throw new NotImplementedException();
             }
         }
+        #endregion
     }
 }

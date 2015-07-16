@@ -12,7 +12,6 @@
                 <ComboBoxItem>Human</ComboBoxItem>
                 <ComboBoxItem>AI Random</ComboBoxItem>
                 <ComboBoxItem>AI Curbs</ComboBoxItem>
-                <ComboBoxItem>AI Points</ComboBoxItem>
             </ComboBox>
         </TextBlock>
         <Label Height="25" DockPanel.Dock="Top"></Label>
@@ -22,7 +21,6 @@
                 <ComboBoxItem>Human</ComboBoxItem>
                 <ComboBoxItem>AI Random</ComboBoxItem>
                 <ComboBoxItem>AI Curbs</ComboBoxItem>
-                <ComboBoxItem>AI Points</ComboBoxItem>
             </ComboBox>
         </TextBlock>
     </DockPanel>

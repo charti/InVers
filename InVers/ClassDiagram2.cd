@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="InVers.Model.Field">
+    <Position X="0.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Model\Token.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InVers.Model.Move">
+    <Position X="0.5" Y="3.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAQAAAQAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Model\Token.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InVers.Model.Token">
+    <Position X="2.75" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Model\Token.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InVers.Model.Board">
+    <Position X="5" Y="4" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAEAAAAAkAABAwAEAAAAACgAABAAA=</HashCode>
+      <FileName>Model\Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InVers.Model.Player">
+    <Position X="9" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIBAAAAAAAAAAAAAAAAAAAAAAAAAgAIAAAA=</HashCode>
+      <FileName>Model\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InVers.Control.GameControl">
+    <Position X="5" Y="1" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAAAAAAAABAEAAAQAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Control\Controllers\GameControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="InVers.Model.MoveKind">
+    <Position X="9" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>Model\Token.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="InVers.Model.PlayerKind">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAACAAAAAIAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Model\Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="InVers.Model.PlayerColor">
+    <Position X="9" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Model\Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

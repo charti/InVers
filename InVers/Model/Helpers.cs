@@ -12,8 +12,6 @@ namespace InVers.Model
         public static List<int> GenerateRandom(int count, int min, int max)
         {
             var candidates = new HashSet<int>();
-            //while (candidates.Count < count)
-            //    candidates.Add(random.Next(min, max));
 
             for(; min <= max; min++)
             {

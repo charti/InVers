@@ -49,8 +49,10 @@ namespace InVers.Model
         public Board(Board cpyBoard)
         {
             _players = new[] { 
-                new Player(cpyBoard.Players[0].Kind),
-                new Player(cpyBoard.Players[1].Kind)
+                new Player(cpyBoard.Players[0].Kind) {
+                    CurrentToken = cpyBoard._players[0].CurrentToken},
+                new Player(cpyBoard.Players[1].Kind) {
+                    CurrentToken = cpyBoard._players[1].CurrentToken},
             };
 
             int idx = -1;
@@ -70,10 +72,11 @@ namespace InVers.Model
                 }
             }
 
-            CurrentTurn = cpyBoard.CurrentTurn;
+            CurrentTurn = _players.First(pl => pl.Color == cpyBoard.CurrentTurn.Color);
 
         }
 
+        #region Functions
         private void InitBoard()
         {
             for (int i = 1; i <= 6; i++)
@@ -136,6 +139,50 @@ namespace InVers.Model
                 yellowCount == 18 ? Players.First(pl => pl.Color == PlayerColor.yellow) :
                 null;
         }
+
+        public bool Move(Model.Move move)
+        {
+            var success = move
+                .Slide(_board.Select(token => token as Token).AsEnumerable(), CurrentTurn);
+
+            if (success)
+            {
+                if(CurrentTurn.Color == PlayerColor.red)
+                {
+                    _players[0] = CurrentTurn;
+                    CurrentTurn = _players[1];
+                }
+                else
+                {
+                    _players[1] = CurrentTurn;
+                    CurrentTurn = _players[0];
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public int GetWeightedBoardScore(int[] weighting, bool max)
+        {
+            int score = 0;
+
+            var flippedTokenIdx = Tokens.Where(token => token.IsFlipped)
+                .Select(token => Array.IndexOf(Tokens, token))
+                .ToArray();
+
+            foreach (var idx in flippedTokenIdx)
+            {
+                var factor = Tokens[idx].Color == PlayerColor.red ?
+                    1 : -1;
+                score = weighting[idx] * factor;
+                //score = max ? score - tokenVal : score + tokenVal;
+            }
+
+            return score;
+        }
+        #endregion
     }
 }
 

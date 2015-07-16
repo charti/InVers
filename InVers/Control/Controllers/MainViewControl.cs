@@ -70,19 +70,11 @@ namespace InVers.Control
                 new CommandBinding(Commands.Turn, Turn_Click));
         }
         
-        private async void WaitBeforeTurn()
-        {
-            await Task.Delay(50);
-            if(!_stopAI) 
-                Mediator.NotifyColleagues(Messages.MakeTurn, null);
-        }
-
         public override void MessageNotification(string message, object args)
         {
             switch (message)
             {
                 case Messages.GameInitEnd:
-                    Refresh(args as IEnumerable<Token>);
                     _stopAI = false;
                     break;
                 case Messages.RefreshView:
@@ -131,6 +123,14 @@ namespace InVers.Control
                 Grid.GetColumn(sender as UIElement);
             Mediator.NotifyColleagues(Messages.MakeTurn, encodedCoord);
         }
+
+        private async void WaitBeforeTurn()
+        {
+            await Task.Delay(2000);
+            if (!_stopAI)
+                Mediator.NotifyColleagues(Messages.MakeTurn, null);
+        }
+
         #endregion
     }
 }
