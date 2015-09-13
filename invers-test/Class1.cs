@@ -10,13 +10,13 @@ namespace invers_test
     public class DummyTest
     {
         [Test]
-        void dummy_1_success()
+        public void dummy_1_success()
         {
             Assert.That(true != false);
         }
 
         [Test]
-        void dummy_2_fail()
+        public void dummy_2_fail()
         {
             Assert.That(false == true);
         }
