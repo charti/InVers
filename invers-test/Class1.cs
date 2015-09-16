@@ -14,11 +14,5 @@ namespace invers_test
         {
             Assert.That(true != false);
         }
-
-        [Test]
-        public void dummy_2_fail()
-        {
-            Assert.That(false == true);
-        }
     }
 }
