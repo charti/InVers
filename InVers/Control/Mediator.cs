@@ -39,6 +39,11 @@ namespace InVers.Control
             }
         }
 
+        public void bla()
+        {
+            Console.Write("dummy function for commit");
+        }
+
         /// <summary>
         /// Notify all colleagues that are registed to the specific message
         /// </summary>
